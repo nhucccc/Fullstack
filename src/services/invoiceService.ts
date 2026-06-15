@@ -5,6 +5,7 @@ import type { InvoiceStatus } from '@/types'
 export interface InvoiceSearchParams {
   keyword?: string
   status?: InvoiceStatus
+  patientId?: string
   from?: string
   to?: string
   page?: number

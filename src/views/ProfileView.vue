@@ -9,7 +9,7 @@
               {{ authStore.user?.fullName?.charAt(0) }}
             </a-avatar>
             <h2 style="margin:12px 0 4px">{{ authStore.user?.fullName }}</h2>
-            <a-tag :color="getRoleColor(authStore.user?.role ?? 4)">{{ authStore.user?.roleName }}</a-tag>
+            <a-tag :color="getRoleColor(authStore.user?.role ?? UserRole.Patient)">{{ authStore.user?.roleName }}</a-tag>
             <p style="color:#8c8c8c; margin-top:8px">{{ authStore.user?.email }}</p>
           </div>
         </a-card>
@@ -57,6 +57,7 @@ import { useAuthStore } from '@/stores/auth'
 import { userService } from '@/services/userService'
 import { authService } from '@/services/authService'
 import { getRoleColor } from '@/utils/format'
+import { UserRole } from '@/types'
 import { message } from 'ant-design-vue'
 
 const authStore = useAuthStore()

@@ -15,10 +15,10 @@
         </a-col>
         <a-col :span="5">
           <a-select v-model:value="filters.status" placeholder="Trạng thái" allow-clear style="width:100%" @change="fetchData">
-            <a-select-option :value="1">Chờ thanh toán</a-select-option>
-            <a-select-option :value="2">Đã thanh toán</a-select-option>
-            <a-select-option :value="3">Đã hủy</a-select-option>
-            <a-select-option :value="4">Đã hoàn tiền</a-select-option>
+            <a-select-option value="Pending">Chờ thanh toán</a-select-option>
+            <a-select-option value="Paid">Đã thanh toán</a-select-option>
+            <a-select-option value="Cancelled">Đã hủy</a-select-option>
+            <a-select-option value="Refunded">Đã hoàn tiền</a-select-option>
           </a-select>
         </a-col>
         <a-col :span="5">
@@ -45,7 +45,7 @@
           <template v-if="column.key === 'actions'">
             <a-space>
               <a-button type="link" size="small" @click="router.push(`/invoices/${record.id}`)"><EyeOutlined /></a-button>
-              <a-button v-if="record.status === 1" type="link" size="small" style="color:#52c41a"
+              <a-button v-if="record.status === 'Pending'" type="link" size="small" style="color:#52c41a"
                 @click="openPay(record)">
                 <DollarOutlined /> Thu tiền
               </a-button>
@@ -67,10 +67,10 @@
       </div>
       <a-form-item label="Phương thức thanh toán">
         <a-radio-group v-model:value="paymentMethod" button-style="solid">
-          <a-radio-button :value="1">Tiền mặt</a-radio-button>
-          <a-radio-button :value="2">Chuyển khoản</a-radio-button>
-          <a-radio-button :value="3">Thẻ</a-radio-button>
-          <a-radio-button :value="4">BHYT</a-radio-button>
+          <a-radio-button value="Cash">💵 Tiền mặt</a-radio-button>
+          <a-radio-button value="BankTransfer">🏦 Chuyển khoản</a-radio-button>
+          <a-radio-button value="Card">💳 Thẻ</a-radio-button>
+          <a-radio-button value="Insurance">🏥 BHYT</a-radio-button>
         </a-radio-group>
       </a-form-item>
     </a-modal>
@@ -96,7 +96,7 @@ const pageSize = ref(20)
 const dateRange = ref<any>(null)
 const showPayModal = ref(false)
 const payingInvoice = ref<InvoiceDto | null>(null)
-const paymentMethod = ref(1)
+const paymentMethod = ref<string>('Cash')
 const filters = reactive({ keyword: '', status: undefined as number | undefined })
 
 const columns: any[] = [

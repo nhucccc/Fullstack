@@ -5,6 +5,7 @@ import type { DispensationStatus } from '@/types'
 export interface DispensationSearchParams {
   keyword?: string
   status?: DispensationStatus
+  patientId?: string
   from?: string
   to?: string
   page?: number

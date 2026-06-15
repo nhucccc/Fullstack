@@ -19,14 +19,14 @@
         <a-col :span="8">
           <a-form-item label="Đơn vị *">
             <a-select v-model:value="form.unit" style="width:100%">
-              <a-select-option :value="1">Viên</a-select-option>
-              <a-select-option :value="2">Chai</a-select-option>
-              <a-select-option :value="3">Ống</a-select-option>
-              <a-select-option :value="4">Gói</a-select-option>
-              <a-select-option :value="5">Hộp</a-select-option>
-              <a-select-option :value="6">Tuýp</a-select-option>
-              <a-select-option :value="7">ml</a-select-option>
-              <a-select-option :value="8">mg</a-select-option>
+              <a-select-option value="Vien">Viên</a-select-option>
+              <a-select-option value="Chai">Chai</a-select-option>
+              <a-select-option value="Ong">Ống</a-select-option>
+              <a-select-option value="Goi">Gói</a-select-option>
+              <a-select-option value="Hop">Hộp</a-select-option>
+              <a-select-option value="Tube">Tuýp</a-select-option>
+              <a-select-option value="Ml">ml</a-select-option>
+              <a-select-option value="Mg">mg</a-select-option>
             </a-select>
           </a-form-item>
         </a-col>

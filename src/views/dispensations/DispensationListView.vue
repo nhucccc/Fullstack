@@ -15,10 +15,10 @@
         </a-col>
         <a-col :span="5">
           <a-select v-model:value="filters.status" placeholder="Trạng thái" allow-clear style="width:100%" @change="fetchData">
-            <a-select-option :value="1">Chờ xử lý</a-select-option>
-            <a-select-option :value="2">Đang xử lý</a-select-option>
-            <a-select-option :value="3">Đã xuất thuốc</a-select-option>
-            <a-select-option :value="4">Đã hủy</a-select-option>
+            <a-select-option value="Pending">Chờ xử lý</a-select-option>
+            <a-select-option value="Processing">Đang xử lý</a-select-option>
+            <a-select-option value="Dispensed">Đã xuất thuốc</a-select-option>
+            <a-select-option value="Cancelled">Đã hủy</a-select-option>
           </a-select>
         </a-col>
         <a-col :span="5">
@@ -43,7 +43,7 @@
           <template v-if="column.key === 'actions'">
             <a-space>
               <a-button type="link" size="small" @click="router.push(`/dispensations/${record.id}`)"><EyeOutlined /></a-button>
-              <a-popconfirm v-if="record.status === 1 && authStore.canManageMedicines"
+              <a-popconfirm v-if="record.status === 'Pending' && authStore.canManageMedicines"
                 title="Xác nhận xuất thuốc?" @confirm="processDispensation(record.id)">
                 <a-button type="link" size="small" style="color:#52c41a"><CheckOutlined /> Xuất</a-button>
               </a-popconfirm>

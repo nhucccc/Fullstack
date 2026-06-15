@@ -8,11 +8,11 @@
       </template>
       <template #extra>
         <a-space>
-          <a-popconfirm v-if="dispensation.status === 1 && authStore.canManageMedicines"
+          <a-popconfirm v-if="dispensation.status === 'Pending' && authStore.canManageMedicines"
             title="Xác nhận xuất thuốc từ kho?" @confirm="process">
             <a-button type="primary"><CheckOutlined /> Xuất thuốc</a-button>
           </a-popconfirm>
-          <a-button v-if="dispensation.status !== 3 && dispensation.status !== 4" danger @click="showCancelModal = true">
+          <a-button v-if="dispensation.status !== 'Dispensed' && dispensation.status !== 'Cancelled'" danger @click="showCancelModal = true">
             <CloseOutlined /> Hủy
           </a-button>
         </a-space>
@@ -60,7 +60,7 @@
       </a-col>
 
       <a-col :span="8">
-        <a-card title="Tạo hóa đơn" v-if="dispensation.status === 3 && authStore.canViewFinance">
+        <a-card title="Tạo hóa đơn" v-if="dispensation.status === 'Dispensed' && authStore.canViewFinance">
           <p>Phiếu đã xuất thuốc. Tạo hóa đơn viện phí cho bệnh nhân?</p>
           <a-button type="primary" block @click="router.push(`/invoices/create?dispensationId=${dispensation.id}`)">
             <DollarOutlined /> Tạo hóa đơn

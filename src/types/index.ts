@@ -1,5 +1,5 @@
 // ── Enums ─────────────────────────────────────────────────────────────────────
-// Dùng string enum để khớp với API trả về ("Admin", "Doctor", "Nurse", "Patient")
+// Dùng string enum để khớp với API trả về
 export enum UserRole {
   Admin   = 'Admin',
   Doctor  = 'Doctor',
@@ -8,36 +8,36 @@ export enum UserRole {
 }
 
 export enum DispensationStatus {
-  Pending = 1,
-  Processing = 2,
-  Dispensed = 3,
-  Cancelled = 4,
-  PartiallyDispensed = 5
+  Pending            = 'Pending',
+  Processing         = 'Processing',
+  Dispensed          = 'Dispensed',
+  Cancelled          = 'Cancelled',
+  PartiallyDispensed = 'PartiallyDispensed'
 }
 
 export enum InvoiceStatus {
-  Pending = 1,
-  Paid = 2,
-  Cancelled = 3,
-  Refunded = 4
+  Pending  = 'Pending',
+  Paid     = 'Paid',
+  Cancelled = 'Cancelled',
+  Refunded = 'Refunded'
 }
 
 export enum PaymentMethod {
-  Cash = 1,
-  BankTransfer = 2,
-  Card = 3,
-  Insurance = 4
+  Cash         = 'Cash',
+  BankTransfer = 'BankTransfer',
+  Card         = 'Card',
+  Insurance    = 'Insurance'
 }
 
 export enum MedicineUnit {
-  Vien = 1,
-  Chai = 2,
-  Ong = 3,
-  Goi = 4,
-  Hop = 5,
-  Tube = 6,
-  Ml = 7,
-  Mg = 8
+  Vien = 'Vien',
+  Chai = 'Chai',
+  Ong  = 'Ong',
+  Goi  = 'Goi',
+  Hop  = 'Hop',
+  Tube = 'Tube',
+  Ml   = 'Ml',
+  Mg   = 'Mg'
 }
 
 // ── Auth ──────────────────────────────────────────────────────────────────────
