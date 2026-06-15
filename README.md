@@ -1,63 +1,70 @@
-# 🏥 Frontend - Hệ thống Đặt lịch & Quản lý Phòng khám
+# 🏥 Frontend chung — Đề tài 05: Hệ thống Đặt lịch & Quản lý Phòng khám
 
-> **Đề tài 05** — Frontend dùng chung cho 3 nhóm  
-> Tech stack: **Vue 3 + Vite + Ant Design Vue + Pinia + TypeScript**
-
----
-
-## 📁 Cấu trúc
-
-```
-src/
-├── views/          # Các trang UI
-├── components/     # Component tái sử dụng
-├── services/       # Gọi API từng service
-├── stores/         # Pinia state management
-├── router/         # Vue Router + RBAC guard
-├── types/          # TypeScript types
-└── utils/          # http.ts (axios), format.ts
-```
+> Vue 3 + Vite + Ant Design Vue + Pinia + TypeScript
 
 ---
 
-## 🚀 Cài đặt & Chạy
+## 🌿 Cấu trúc nhánh Git
 
+```
+main                        ← Nhánh chính, code ổn định, merge từ các nhóm
+├── feature/nhom1-appointment      ← Nhóm 1 làm việc ở đây
+├── feature/nhom2-medical-record   ← Nhóm 2 làm việc ở đây
+└── master (nhom3-pharmacy)        ← Nhóm 3 làm việc ở đây
+```
+
+**Quy tắc:**
+- Mỗi nhóm chỉ làm việc trên nhánh của mình
+- Muốn lấy code mới nhất từ nhóm khác → merge từ `main`
+- Hoàn thành tính năng → tạo Pull Request vào `main`
+
+---
+
+## 🚀 Hướng dẫn từng nhóm
+
+### Nhóm 1 — Appointment Service
 ```bash
-# 1. Clone về
-git clone <repo-url>
-cd frontend
-
-# 2. Cài packages
+git clone https://github.com/nhucccc/Fullstack.git
+cd Fullstack
+git checkout feature/nhom1-appointment
 npm install
-
-# 3. Cấu hình API URL (xem mục bên dưới)
-
-# 4. Chạy dev server
 npm run dev
-# → http://localhost:3000
+```
+
+### Nhóm 2 — Medical Record Service
+```bash
+git clone https://github.com/nhucccc/Fullstack.git
+cd Fullstack
+git checkout feature/nhom2-medical-record
+npm install
+npm run dev
+```
+
+### Nhóm 3 — Pharmacy & Billing (nhóm tao)
+```bash
+git clone https://github.com/nhucccc/Fullstack.git
+cd Fullstack
+git checkout main   # hoặc master
+npm install
+npm run dev
 ```
 
 ---
 
-## ⚙️ Cấu hình API URL
-
-Tạo file `.env.local` (không commit lên git):
+## ⚙️ Cấu hình API — tạo file `.env.local`
 
 ```env
-# Nhóm 1 - Appointment Service
+# Nhóm 1 - Appointment Service (port 5001)
 VITE_APPOINTMENT_API_URL=http://localhost:5001/api
 
-# Nhóm 2 - Medical Record Service  
+# Nhóm 2 - Medical Record Service (port 5002)
 VITE_MEDICAL_API_URL=http://localhost:5002/api
 
-# Nhóm 3 - Pharmacy & Billing Service
+# Nhóm 3 - Pharmacy & Billing (port 5000) — mặc định
 VITE_API_URL=http://localhost:5000/api
 ```
 
-File `.env.development` mặc định đã có:
-```env
-VITE_API_URL=http://localhost:5000/api
-```
+> File `.env.local` KHÔNG được commit lên git (đã có trong .gitignore)
 
 ---
 
@@ -66,25 +73,31 @@ VITE_API_URL=http://localhost:5000/api
 | Role | Username | Password |
 |------|----------|----------|
 | Admin | `admin` | `Admin@123` |
-| Y tá / Tiếp tân | `nurse1` | `Nurse@123` |
+| Y tá | `nurse1` | `Nurse@123` |
 | Bác sĩ | `doctor1` | `Doctor@123` |
 | Bệnh nhân | `patient1` | `Patient@123` |
 
 ---
 
-## 🔗 Các Service Backend
+## 🔄 Workflow cộng tác
 
-| Service | Port | Nhóm |
-|---------|------|-------|
-| Pharmacy & Billing | `5000` | Nhóm 3 |
-| Appointment Service | `5001` | Nhóm 1 |
-| Medical Record Service | `5002` | Nhóm 2 |
+```bash
+# Lấy code mới nhất từ nhóm khác (qua main)
+git fetch origin
+git merge origin/main
+
+# Commit và push code của nhóm mình
+git add .
+git commit -m "feat: mô tả tính năng"
+git push
+
+# Khi xong tính năng → tạo Pull Request vào main trên GitHub
+```
 
 ---
 
-## 📦 Build production
+## 📦 Build
 
 ```bash
-npm run build
-# Output: dist/
+npm run build   # Output: dist/
 ```
