@@ -30,7 +30,7 @@
           </template>
           <template v-if="column.key === 'date'">{{ formatDate(record.createdAt) }}</template>
           <template v-if="column.key === 'actions'">
-            <a-button type="link" size="small" @click="router.push(`/invoices/${record.id}`)">
+            <a-button type="link" size="small" @click="router.push(`/app/invoices/${record.id}`)">
               <EyeOutlined /> Xem
             </a-button>
           </template>

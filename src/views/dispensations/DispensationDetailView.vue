@@ -62,7 +62,7 @@
       <a-col :span="8">
         <a-card title="Tạo hóa đơn" v-if="dispensation.status === 'Dispensed' && authStore.canViewFinance">
           <p>Phiếu đã xuất thuốc. Tạo hóa đơn viện phí cho bệnh nhân?</p>
-          <a-button type="primary" block @click="router.push(`/invoices/create?dispensationId=${dispensation.id}`)">
+          <a-button type="primary" block @click="router.push(`/app/invoices/create?dispensationId=${dispensation.id}`)">
             <DollarOutlined /> Tạo hóa đơn
           </a-button>
         </a-card>

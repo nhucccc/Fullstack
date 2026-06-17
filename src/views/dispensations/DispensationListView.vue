@@ -1,8 +1,8 @@
-<template>
+﻿<template>
   <div>
     <a-page-header title="Phiếu xuất thuốc">
       <template #extra>
-        <a-button v-if="authStore.canManageMedicines" type="primary" @click="router.push('/dispensations/create')">
+        <a-button v-if="authStore.canManageMedicines" type="primary" @click="router.push('/app/dispensations/create')">
           <PlusOutlined /> Tạo phiếu mới
         </a-button>
       </template>
@@ -42,7 +42,7 @@
           <template v-if="column.key === 'date'">{{ formatDateTime(record.createdAt) }}</template>
           <template v-if="column.key === 'actions'">
             <a-space>
-              <a-button type="link" size="small" @click="router.push(`/dispensations/${record.id}`)"><EyeOutlined /></a-button>
+              <a-button type="link" size="small" @click="router.push(`/app/dispensations/${record.id}`)"><EyeOutlined /></a-button>
               <a-popconfirm v-if="record.status === 'Pending' && authStore.canManageMedicines"
                 title="Xác nhận xuất thuốc?" @confirm="processDispensation(record.id)">
                 <a-button type="link" size="small" style="color:#52c41a"><CheckOutlined /> Xuất</a-button>

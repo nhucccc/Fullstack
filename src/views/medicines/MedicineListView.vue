@@ -62,7 +62,7 @@
           </template>
           <template v-if="column.key === 'actions'">
             <a-space>
-              <a-button type="link" size="small" @click="router.push(`/medicines/${record.id}`)">
+              <a-button type="link" size="small" @click="router.push(`/app/medicines/${record.id}`)">
                 <EyeOutlined />
               </a-button>
               <a-button v-if="authStore.isAdmin" type="link" size="small" @click="openEdit(record)">

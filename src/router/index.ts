@@ -4,6 +4,13 @@ import { UserRole } from '@/types'
 const router = createRouter({
   history: createWebHistory(),
   routes: [
+    // ── PUBLIC (không cần đăng nhập, kể cả đã đăng nhập vẫn vào được) ──
+    {
+      path: '/',
+      name: 'Home',
+      component: () => import('@/views/HomeView.vue'),
+      meta: { requiresAuth: false, isPublicPage: true, title: 'Trang chủ' }
+    },
     {
       path: '/login',
       name: 'Login',
@@ -16,59 +23,84 @@ const router = createRouter({
       component: () => import('@/views/auth/RegisterView.vue'),
       meta: { requiresAuth: false, title: 'Đăng ký' }
     },
+
+    // ── APP (cần đăng nhập) ──────────────────────────────────
     {
-      path: '/',
+      path: '/app',
       component: () => import('@/layouts/AppLayout.vue'),
       meta: { requiresAuth: true },
       children: [
-        { path: '',              redirect: { name: 'Dashboard' } },
-        { path: 'dashboard',    name: 'Dashboard',          component: () => import('@/views/DashboardView.vue'),                          meta: { title: 'Tổng quan',             roles: [UserRole.Admin, UserRole.Nurse] } },
-        { path: 'medicines',    name: 'Medicines',          component: () => import('@/views/medicines/MedicineListView.vue'),              meta: { title: 'Quản lý thuốc' } },
-        { path: 'medicines/:id',name: 'MedicineDetail',     component: () => import('@/views/medicines/MedicineDetailView.vue'),            meta: { title: 'Chi tiết thuốc' } },
+        // Redirect mặc định theo role (xử lý trong guard)
+        { path: '',        redirect: '/app/dashboard' },
+
+        // Admin + Nurse
+        { path: 'dashboard',    name: 'Dashboard',       component: () => import('@/views/DashboardView.vue'),                          meta: { title: 'Tổng quan',           roles: [UserRole.Admin, UserRole.Nurse] } },
+
+        // Tất cả roles
+        { path: 'medicines',    name: 'Medicines',       component: () => import('@/views/medicines/MedicineListView.vue'),              meta: { title: 'Kho thuốc' } },
+        { path: 'medicines/:id',name: 'MedicineDetail',  component: () => import('@/views/medicines/MedicineDetailView.vue'),            meta: { title: 'Chi tiết thuốc' } },
+
+        // Admin + Nurse: tạo dispensation
         { path: 'dispensations/create', name: 'DispensationCreate', component: () => import('@/views/dispensations/DispensationCreateView.vue'), meta: { title: 'Tạo phiếu xuất thuốc', roles: [UserRole.Admin, UserRole.Nurse] } },
-        { path: 'dispensations',name: 'Dispensations',      component: () => import('@/views/dispensations/DispensationListView.vue'),      meta: { title: 'Phiếu xuất thuốc' } },
-        { path: 'dispensations/:id', name: 'DispensationDetail', component: () => import('@/views/dispensations/DispensationDetailView.vue'), meta: { title: 'Chi tiết phiếu xuất thuốc' } },
-        { path: 'invoices/create', name: 'InvoiceCreate',   component: () => import('@/views/invoices/InvoiceCreateView.vue'),              meta: { title: 'Tạo hóa đơn',          roles: [UserRole.Admin, UserRole.Nurse] } },
-        { path: 'invoices',     name: 'Invoices',           component: () => import('@/views/invoices/InvoiceListView.vue'),                meta: { title: 'Hóa đơn viện phí',     roles: [UserRole.Admin, UserRole.Nurse] } },
-        { path: 'invoices/:id', name: 'InvoiceDetail',      component: () => import('@/views/invoices/InvoiceDetailView.vue'),              meta: { title: 'Chi tiết hóa đơn' } },
-        { path: 'users',        name: 'Users',              component: () => import('@/views/users/UserListView.vue'),                      meta: { title: 'Quản lý người dùng',    roles: [UserRole.Admin] } },
-        { path: 'reports',      name: 'Reports',            component: () => import('@/views/ReportsView.vue'),                             meta: { title: 'Báo cáo doanh thu',    roles: [UserRole.Admin] } },
-        { path: 'profile',      name: 'Profile',            component: () => import('@/views/ProfileView.vue'),                             meta: { title: 'Hồ sơ cá nhân' } },
-        { path: 'my-invoices',  name: 'MyInvoices',         component: () => import('@/views/patient/MyInvoicesView.vue'),                  meta: { title: 'Hóa đơn của tôi',      roles: [UserRole.Patient] } },
-        { path: 'my-prescriptions', name: 'MyPrescriptions', component: () => import('@/views/patient/MyPrescriptionsView.vue'),            meta: { title: 'Đơn thuốc của tôi',    roles: [UserRole.Patient] } },
+        // Admin + Nurse + Doctor: xem dispensations
+        { path: 'dispensations',     name: 'Dispensations',     component: () => import('@/views/dispensations/DispensationListView.vue'),      meta: { title: 'Phiếu xuất thuốc',    roles: [UserRole.Admin, UserRole.Nurse, UserRole.Doctor] } },
+        { path: 'dispensations/:id', name: 'DispensationDetail', component: () => import('@/views/dispensations/DispensationDetailView.vue'),     meta: { title: 'Chi tiết phiếu xuất' } },
+
+        // Admin + Nurse: invoices
+        { path: 'invoices/create', name: 'InvoiceCreate', component: () => import('@/views/invoices/InvoiceCreateView.vue'),  meta: { title: 'Tạo hóa đơn', roles: [UserRole.Admin, UserRole.Nurse] } },
+        { path: 'invoices',        name: 'Invoices',      component: () => import('@/views/invoices/InvoiceListView.vue'),    meta: { title: 'Hóa đơn viện phí', roles: [UserRole.Admin, UserRole.Nurse] } },
+        { path: 'invoices/:id',    name: 'InvoiceDetail', component: () => import('@/views/invoices/InvoiceDetailView.vue'),  meta: { title: 'Chi tiết hóa đơn' } },
+
+        // Admin only
+        { path: 'users',   name: 'Users',   component: () => import('@/views/users/UserListView.vue'), meta: { title: 'Quản lý người dùng', roles: [UserRole.Admin] } },
+        { path: 'reports', name: 'Reports', component: () => import('@/views/ReportsView.vue'),         meta: { title: 'Báo cáo doanh thu',  roles: [UserRole.Admin] } },
+
+        // Tất cả roles
+        { path: 'profile', name: 'Profile', component: () => import('@/views/ProfileView.vue'), meta: { title: 'Hồ sơ cá nhân' } },
+
+        // Patient only
+        { path: 'my-invoices',       name: 'MyInvoices',       component: () => import('@/views/patient/MyInvoicesView.vue'),       meta: { title: 'Hóa đơn của tôi',   roles: [UserRole.Patient] } },
+        { path: 'my-prescriptions',  name: 'MyPrescriptions',  component: () => import('@/views/patient/MyPrescriptionsView.vue'),  meta: { title: 'Đơn thuốc của tôi', roles: [UserRole.Patient] } },
       ]
     },
+
+    // Fallback
+    { path: '/:pathMatch(.*)*', redirect: '/' }
   ]
 })
 
+// ── Navigation Guard ───────────────────────────────────────────
 router.beforeEach(async (to) => {
   const { useAuthStore } = await import('@/stores/auth')
   const authStore = useAuthStore()
-
   authStore.init()
 
-  document.title = `${String(to.meta.title ?? 'Phòng Khám')} | Đề tài 05 - Quản lý Phòng khám`
+  document.title = `${String(to.meta.title ?? 'MediCare')} | Pharmacy & Billing`
 
-  // Chưa đăng nhập → về login (chỉ khi route yêu cầu auth)
+  // Trang isPublicPage (trang chủ) → ai cũng vào được kể cả đã login
+  if (to.meta.isPublicPage) return
+
+  // Chưa đăng nhập → về login
   if (to.meta.requiresAuth !== false && !authStore.isAuthenticated) {
-    if (to.name !== 'Login') {
-      return { name: 'Login', query: { redirect: to.fullPath } }
-    }
-    return // đã ở Login rồi, không redirect nữa
+    return { name: 'Login', query: { redirect: to.fullPath } }
   }
 
-  // Đã đăng nhập mà vào login → về dashboard
-  if (to.name === 'Login' && authStore.isAuthenticated) {
-    return { name: 'Dashboard' }
+  // Đã đăng nhập mà vào /login hoặc /register → về app
+  if ((to.name === 'Login' || to.name === 'Register') && authStore.isAuthenticated) {
+    return getHomeRoute(authStore.user?.role)
   }
 
   // Kiểm tra role
   const allowedRoles = to.meta.roles as UserRole[] | undefined
   if (allowedRoles && authStore.user && !allowedRoles.includes(authStore.user.role)) {
-    // Doctor không có dashboard → về medicines
-    if (to.name !== 'Medicines') return { name: 'Medicines' }
-    return
+    return getHomeRoute(authStore.user.role)
   }
 })
+
+function getHomeRoute(role?: UserRole) {
+  if (role === UserRole.Patient) return { name: 'MyInvoices' }
+  if (role === UserRole.Doctor)  return { name: 'Medicines' }
+  return { name: 'Dashboard' }
+}
 
 export default router

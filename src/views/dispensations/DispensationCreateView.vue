@@ -117,7 +117,7 @@ const handleSubmit = async () => {
   loading.value = true
   try {
     const res = await dispensationService.create({ ...form })
-    if (res.success) { message.success('Tạo phiếu xuất thuốc thành công!'); router.push('/dispensations') }
+    if (res.success) { message.success('Tạo phiếu xuất thuốc thành công!'); router.push('/app/dispensations') }
     else message.error(res.error)
   } finally { loading.value = false }
 }

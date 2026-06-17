@@ -109,7 +109,7 @@ const rules: any = {
 
 const handleRegister = async () => {
   const ok = await authStore.register({ ...form })
-  if (ok) router.push('/dashboard')
+  if (ok) router.push('/app/dashboard')
 }
 </script>
 

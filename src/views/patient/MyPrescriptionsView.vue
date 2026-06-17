@@ -32,7 +32,7 @@
           </template>
           <template v-if="column.key === 'date'">{{ formatDate(record.createdAt) }}</template>
           <template v-if="column.key === 'actions'">
-            <a-button type="link" size="small" @click="router.push(`/dispensations/${record.id}`)">
+            <a-button type="link" size="small" @click="router.push(`/app/dispensations/${record.id}`)">
               <EyeOutlined /> Xem
             </a-button>
           </template>

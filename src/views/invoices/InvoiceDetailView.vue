@@ -92,7 +92,7 @@
 
         <!-- Phiếu xuất thuốc liên quan -->
         <a-card v-if="invoice.dispensationId" title="Phiếu xuất thuốc" style="margin-top:16px">
-          <a-button type="link" @click="router.push(`/dispensations/${invoice.dispensationId}`)">
+          <a-button type="link" @click="router.push(`/app/dispensations/${invoice.dispensationId}`)">
             <FileTextOutlined /> Xem phiếu xuất thuốc
           </a-button>
         </a-card>

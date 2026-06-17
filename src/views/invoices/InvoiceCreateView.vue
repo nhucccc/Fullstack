@@ -201,7 +201,7 @@ const handleSubmit = async () => {
     const res = await invoiceService.create(payload)
     if (res.success) {
       message.success('Tạo hóa đơn thành công!')
-      router.push('/invoices')
+      router.push('/app/invoices')
     } else {
       message.error(res.error || 'Tạo hóa đơn thất bại')
     }

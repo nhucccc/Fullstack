@@ -2,7 +2,7 @@
   <div>
     <a-page-header title="Hóa đơn viện phí">
       <template #extra>
-        <a-button type="primary" @click="router.push('/invoices/create')">
+        <a-button type="primary" @click="router.push('/app/invoices/create')">
           <PlusOutlined /> Tạo hóa đơn
         </a-button>
       </template>
@@ -44,7 +44,7 @@
           <template v-if="column.key === 'date'">{{ formatDate(record.createdAt) }}</template>
           <template v-if="column.key === 'actions'">
             <a-space>
-              <a-button type="link" size="small" @click="router.push(`/invoices/${record.id}`)"><EyeOutlined /></a-button>
+              <a-button type="link" size="small" @click="router.push(`/app/invoices/${record.id}`)"><EyeOutlined /></a-button>
               <a-button v-if="record.status === 'Pending'" type="link" size="small" style="color:#52c41a"
                 @click="openPay(record)">
                 <DollarOutlined /> Thu tiền
