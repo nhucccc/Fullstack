@@ -98,6 +98,11 @@
         </a-form>
 
         <!-- Demo section -->
+        <div class="register-link-row">
+          Bệnh nhân chưa có tài khoản?
+          <router-link to="/register">Đăng ký ngay →</router-link>
+        </div>
+
         <div class="demo-section">
           <div class="demo-title">
             <span class="demo-line"></span>
@@ -332,6 +337,25 @@ const handleLogin = async () => {
   transform: translateY(-1px) !important;
   box-shadow: 0 6px 20px rgba(37,99,235,0.5) !important;
 }
+
+/* Register link */
+.register-link-row {
+  text-align: center;
+  font-size: 13px;
+  color: var(--gray-500);
+  margin-top: 16px;
+  padding: 12px;
+  background: var(--gray-50);
+  border-radius: 10px;
+  border: 1px solid var(--gray-100);
+}
+.register-link-row a {
+  color: var(--primary);
+  font-weight: 600;
+  text-decoration: none;
+  margin-left: 4px;
+}
+.register-link-row a:hover { text-decoration: underline; }
 
 /* Demo */
 .demo-section { margin-top: 28px; }
